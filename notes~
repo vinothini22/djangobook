@@ -1,0 +1,113 @@
+﻿Installation:
+
+Download the django package 
+python setup.py install
+
+To start a project:django-admin.py startproject name_of_project
+To start a app	  :python manage.py startapp name_of_app (or) django-admin.py startapp name_of_app
+		   once the app is installed,add it to the project via settings file INSTALLED_APPS
+
+To run a server: python manage.py runserver
+
+VIEWS:
+
+imports:
+import httpresponse
+import 
+
+each url has associated view function which takes one argument request
+all the template manipulation are done here
+
+
+URLS:
+
+imports:
+import patterns,include,url
+import the views for that url
+
+This has patterns function which takes empty string as argument and another url function
+url function in turn takes arguments such as regex,corresponding view function for that url
+	
+
+
+TEMPLATES:
+
+Template tags: {% %}
+varaible rep: {{ }}
+Filters: |
+
+1) Create a Template object by providing the raw template code as a string.
+from django.template import Template
+t = Template('My name is {{ name }}')
+2) Once you have a Template object, you can pass it data by giving it a contex
+A context is simply a set of template variable names and their associated values. A template uses this to populate its variables and evaluate its tags.
+
+from django.template import Context
+c = Context({'name':'vino'})
+
+3)call the Template object’s render() method with the context to “fill” the template:
+
+t.render(c)
+
+
+Template Loading:
+The above approach is not advisiable since it involives lot of hard coding and too many lines of code
+
+1)Create separate folder for all templates to reside in your project and give the path of it in TEMPLATE_DIRS
+2)open the required template file using the function
+	t = get_template('')
+3)follow the remaining procedures are same
+
+Another approach:
+
+import django.shortcuts import render
+render(request,'base.html',{name:'vino'}) function takes three arguments request,template file,dictionary of values
+
+Template inheritance:          
+
+MODELS:
+
+configure the database and change the settings file to add db
+models.py generally resides in the app
+
+Edit it for the project too have models:
+1)Each class is an table/(model) in the database
+2)The varaibles inside the class are the columns of that table
+add this
+3)python manage.py validate   //check for errors
+4)python manage.py sqlall app_name //just to see how that table is created
+5)python manage.py syncdb         //sync the db
+
+from django.db import models
+class name(models.Model):
+  name = models.CharField(max_length=200) 
+
+class name1(models.Model)"
+  pass
+	
+inserting and updating the data:
+
+1)python manage.py shell  // to go into interactive interpreter for db
+2)from app_name.models import Model_name 
+p = Model_name('')
+p.save()
+model_name.objects.all()
+model_name.objects.filter()
+model_name.objects.get()
+model_name.objects.order_by()
+model_name.objects.order_by()[0] /slicing
+model_name.objects.all().delete()
+
+
+FORMS:
+GET and POST 
+'q' in request.GET
+request.GET['q']	
+
+MISC:
+{% include %} tag
+{% url %} template tag
+
+
+
+
